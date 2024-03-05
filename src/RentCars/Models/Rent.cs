@@ -24,14 +24,6 @@ public class Rent
 
     //11 - Implemente os métodos de `cancelar` e `finalizar` um aluguel
 
-//     O que será testado:
-
-// O método Rent.Cancel() deve cancelar um aluguel
-
-// O Status deve ser alterado para RentStatus.Cancelled
-// O método Rent.Finish() deve finalizar um aluguel
-
-// O Status deve ser alterado para RentStatus.Finished
     public void Cancel()
     {
         Status = RentStatus.Canceled;
