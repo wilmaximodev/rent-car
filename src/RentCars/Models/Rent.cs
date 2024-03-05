@@ -2,10 +2,6 @@ using RentCars.Types;
 
 namespace RentCars.Models;
 
-// O enum deve conter o campo Confirmed com valor 0
-// O enum deve conter o campo Finished com valor 1
-// O enum deve conter o campo Canceled com valor igual ao Finished
-
 public class Rent
 {
     public Vehicle Vehicle { get; set; }
@@ -13,22 +9,40 @@ public class Rent
     public int DaysRented { get; set; }
     public double Price { get; set; }
     public RentStatus Status { get; set; }
-
-    //10 - Crie o construtor de `Rent` seguindo as regras de negócio
     public Rent(Vehicle vehicle, Person person, int daysRented)
     {
-        throw new NotImplementedException();
+        Vehicle = vehicle;
+        Person = person;
+        DaysRented = daysRented;
+        Status = RentStatus.Confirmed;
+        Price =  daysRented * vehicle.PricePerDay;
+        if (person is LegalPerson) Price *= 0.9;
+
+        Vehicle.IsRented = true;
+        Person.Debit = Price;
     }
 
     //11 - Implemente os métodos de `cancelar` e `finalizar` um aluguel
+
+//     O que será testado:
+
+// O método Rent.Cancel() deve cancelar um aluguel
+
+// O Status deve ser alterado para RentStatus.Cancelled
+// O método Rent.Finish() deve finalizar um aluguel
+
+// O Status deve ser alterado para RentStatus.Finished
     public void Cancel()
     {
-        throw new NotImplementedException();
+        Status = RentStatus.Canceled;
+        Vehicle.IsRented = false;
+        Person.Debit = 0;
     }
 
     //11 - Implemente os métodos de `cancelar` e `finalizar` um aluguel
     public void Finish()
     {
-        throw new NotImplementedException();
+        Status = RentStatus.Finished;
+        Vehicle.IsRented = false;
     }
 }
